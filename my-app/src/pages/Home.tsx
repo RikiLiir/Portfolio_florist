@@ -1,49 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, useNavigate, useNavigation, useRoutes } from "react-router-dom";
-import requestJson from "../components/helpers/requestJson";
-import requestUpload from "../components/helpers/request";
+import React, { useState } from "react";
+import Navigation from "../Navigation";
+import CategoryTile from "../components/CategoryTile/CategoryTile";
 
 type Props = {
-  isAuthenticated: boolean
+  list: {
+    name: string;
+    url: string;
+  }[]
 }
 
 const Home = ({
-  isAuthenticated
+  list
 }: Props) => {
-  const [list, setList] = useState<string[]>([])
-  const navigate = useNavigate()
-
-  const onClickLogin = () => {
-    navigate('/login')
-  }
-  const submitUpload = () => {
-    const file = document.getElementById('file') as HTMLInputElement
-    const formData = new FormData()
-
-    if (file?.files) {
-      formData.append('file', file.files[0])
-      requestUpload('/upload', {
-        method: 'POST',
-        body: formData
-      })
-    }
-  }
 
   return(
-    <>
-      {!!isAuthenticated ? (
-        <form>
-          <input id='file' type='file' name='file' />
-          <button onClick={submitUpload} type='button'>Upload</button>
-        </form>
-      ) : (
-        <button type='button' onClick={onClickLogin}>Login</button>
-      )}
-{/* 
-      {list.map((item) => (
-        <p key={item}>{item}</p>
-      ))} */}
-    </>
+    <Navigation>
+      <>
+        <div className='container'>
+          <div className="row spacing">
+          {list.map((item) => 
+            <CategoryTile name={item.name} imageUrl={item.url} />
+          )}
+          </div>
+        </div>
+      </>
+    </Navigation>
   );
 }
 export default Home

@@ -21,15 +21,15 @@ const readFile = (mimetype) => {
 }
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './tmp/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + readFile(file.mimetype))
-  }
-})
+    destination: function (req, file, cb) {
+      cb(null, './image')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + readFile(file.mimetype))
+    }
+  })
  
-const upload = multer({ storage: storage })
+const upload = multer({ storage })
 
 dotenv.config()
 
@@ -42,7 +42,9 @@ const UserSchema = new mongoose.Schema({
 const PostSchema = new mongoose.Schema({
   _id: String,
   name: String,
-  description: String
+  description: String,
+  image: String,
+  type: String
 }, {timestamps: true})
 
 
@@ -76,6 +78,8 @@ const verify = (req, res, next) => {
 generateDB()
 app.use(cors())
 app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use("/image", express.static("./image"))
 
 app.post('/register', async (req, res) => {
   const { username, password } = req.body
@@ -147,15 +151,38 @@ app.post('/login', async (req, res) => {
 app.post('/upload',
   verify,
   upload.single('file'),
-  (req, res) => {
-    return res.send('File uploaded successfully.')
+  async (req, res) => {
+    try {
+      const PostsCollection = mongoose.model('Posts')
+      const posts = await PostsCollection.findOne({ name: req.body.name}).exec()
+  
+      if (!!posts) {
+        return res.status(400).json({
+          type: 'error',
+          message: 'This post already exists.'
+        })
+      } else {
+        const newPost = {
+          _id: new mongodb.ObjectId(),
+          name: req.body.name,
+          description: req.body.description,
+          type: req.body.type,
+          image: res.req.file.filename,
+        }
+        PostsCollection.create(newPost)
+        return res.json(newPost)
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 )
 
 app.get('/posts', async (req, res) => {
   // FETCH POSTS
+
   const PostsCollection = mongoose.model('Posts')
-  const posts = await PostsCollection.find().exec()
+  const posts = await PostsCollection.find({type: req.query.type}).exec()
   res.json({posts})
 })
 
