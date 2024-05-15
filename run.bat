@@ -1,0 +1,1 @@
+start cmd /c "cd ./my-app && npm run start" & start cmd /c "cd ./server && node server.js"

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, createBrowserRouter, Navigate, Route, RouteObject, RouterProvider, Routes } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
-import Pulmad from './pages/Page';
+import Page from './pages/Page';
 import Login from './pages/Login';
 import Navigation from './Navigation';
 
@@ -18,15 +18,15 @@ function App() {
       url: '/assets/Leinatood.jpg'
     },
     {
-      name: 'ruumidekoratsioonid',
+      name: 'Ruumidekoratsioonid',
       url: '/assets/Pulmad.jpg'
     },
     {
-      name: 'lillekimbud',
+      name: 'Lillekimbud',
       url: '/assets/Pulmad.jpg'
     },
     {
-      name: 'seaded plastvahus',
+      name: 'Seaded plastvahus',
       url: '/assets/Pulmad.jpg'
     }
   ])
@@ -44,7 +44,7 @@ function App() {
         <Route path="/login" Component={() => <Login setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" Component={() => <Home list={categoryList} />} /> 
         {categoryList.map((category) => (
-          <Route path={`/${category.name}`} Component={() => <Pulmad isAuthenticated={isAuthenticated} heroImage={category.url} typeName={category.name} />} />
+          <Route path={`/${category.name}`} Component={() => <Page isAuthenticated={isAuthenticated} heroImage={category.url} typeName={category.name} />} />
         ))}
       </Routes>
     </BrowserRouter>

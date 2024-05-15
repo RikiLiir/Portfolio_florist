@@ -108,7 +108,6 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body
-    // fetch user list
     const UsersCollection = mongoose.model('Users')
     const user = await UsersCollection.findOne({ username })
 
@@ -131,7 +130,7 @@ app.post('/login', async (req, res) => {
         return jwt.sign(user, secret, { expiresIn })
       }
 
-      const accessToken = generateSignToken(tokenObj, { expiresIn: '15m' }, process.env.API_SECRET)
+      const accessToken = generateSignToken(tokenObj, { expiresIn: '60m' }, process.env.API_SECRET)
       const responseObj = {
         accessToken
       }
@@ -179,8 +178,6 @@ app.post('/upload',
 )
 
 app.get('/posts', async (req, res) => {
-  // FETCH POSTS
-
   const PostsCollection = mongoose.model('Posts')
   const posts = await PostsCollection.find({type: req.query.type}).exec()
   res.json({posts})

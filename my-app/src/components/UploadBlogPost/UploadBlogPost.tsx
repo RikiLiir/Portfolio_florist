@@ -43,7 +43,7 @@ const UploadBlogPost = ({postList, setPostList}: Props) => {
             </div>
             <div className='row'>
               <div className='cell'>
-                <select name="cars" id="category">
+                <select name="Kategooriad" id="category">
                   <option value="Pulmatööd">Pulmatööd</option>
                   <option value="Leinatööd">Leinatööd</option>
                   <option value="ruumidekoratsioonid">ruumidekoratsioonid</option>

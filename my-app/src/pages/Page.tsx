@@ -12,7 +12,7 @@ type Props = {
 
 export type Post = {name: string, description: string, image: string}
 
-const Pulmatööd = ({
+const Page = ({
     isAuthenticated,
     heroImage,
     typeName
@@ -81,5 +81,5 @@ const Pulmatööd = ({
   )
 }
 
-export default Pulmatööd
+export default Page
 

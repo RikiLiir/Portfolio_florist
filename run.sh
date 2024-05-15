@@ -1,0 +1,1 @@
+( cd ./my-app && npm run start ) & ( cd ./server && node server.js )
