@@ -46,9 +46,9 @@ const UploadBlogPost = ({postList, setPostList}: Props) => {
                 <select name="Kategooriad" id="category">
                   <option value="Pulmatööd">Pulmatööd</option>
                   <option value="Leinatööd">Leinatööd</option>
-                  <option value="ruumidekoratsioonid">ruumidekoratsioonid</option>
-                  <option value="lillekimbud">lillekimbud</option>
-                  <option value="seadedplastvahus">seaded plastvahus</option>
+                  <option value="Ruumidekoratsioonid">ruumidekoratsioonid</option>
+                  <option value="Lillekimbud">lillekimbud</option>
+                  <option value="Seaded plastvahus">seaded plastvahus</option>
                 </select>
               </div>
             </div>

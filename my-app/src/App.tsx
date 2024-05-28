@@ -19,15 +19,15 @@ function App() {
     },
     {
       name: 'Ruumidekoratsioonid',
-      url: '/assets/Pulmad.jpg'
+      url: '/assets/Dekoratsioonid.jpg'
     },
     {
       name: 'Lillekimbud',
-      url: '/assets/Pulmad.jpg'
+      url: '/assets/Kimbud.jpg'
     },
     {
       name: 'Seaded plastvahus',
-      url: '/assets/Pulmad.jpg'
+      url: '/assets/Plast.jpg'
     }
   ])
   
